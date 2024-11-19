@@ -1,0 +1,10 @@
+yytext : pointer ystori l current token li rah ydjoz 3lih lex (char*)
+yyleng : length tae token (int)
+yyin : pointer ypointer 3la lfile dyalek ( FILE * ) 
+yyout : pointer ypointer 3la loutput file li rah ykteb fih lexer (yylex.c)
+yylex() : hadi hiya l function tae l main lexical analyser li tdjoz 3al input tae luser w returni tokens (int) 
+yywrap() : bah taeref EOF tae l user (int)
+yyrestart (FILE*) : reset l state tae lexer (void)
+yy_scan_string (const char *str) : sets a string as the inpout for the lexer 
+
+kayn tan yy_delete_buffer w yy_flush_buffer mais machkitch nsa79hom ! 

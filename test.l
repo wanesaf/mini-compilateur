@@ -1,6 +1,11 @@
-%%
+%{
+    int ligne = 1 ; 
+    int const_entiere;
+    float const_float;
+%}
 
-"VAR_GLOBAL"  { printf("MOT-CLE : VAR_GLOBAL\n"); return} 
+%%
+"VAR_GLOBAL"  { printf("MOT-CLE : VAR_GLOBAL\n"); } 
 "DECLARATION" { printf("MOT-CLE : DECLARAATION\n"); } 
 "INSTRUCTION" { printf("MOT-CLE : INSTRUCTION \n"); }
 "INTEGER" { printf("MOT-CLE : INTEGER\n");};
@@ -13,17 +18,18 @@
 "ELSE" { printf("MOT-CLE : ELSE\n");};
 "FOR" { printf("MOT-CLE : FOR\n");};
 
-//bkalek tae float constant w int constant bah tebda table de symboles
-
 [A-Z][a-z0-9]{0,7} {printf("IDF : %s\n",yytext);};
-
+"("[-+][0-9]+\.[0-9]+")" {printf("Constante reele signee : %s\n",yytext);}
+[0-9]+\.[0-9]+ {printf("Constante reele non signee : %s\n",yytext);}
+"("[-+][0-9]+")" { const_entiere = atoi(yytext) ; if (const_entiere >= -32768 && const_entiere <= 32767) {printf("Constante entiere signee : %s\n",yytext);}else { printf("valeur incorrecte!");}}/*plus tard akhdem b yyerror*/
+[0-9]+ { const_entiere = atoi(yytext) ; if (const_entiere >= -32768 && const_entiere <= 32767) {printf("Constante entiere non signee : %s\n",yytext);}else { printf("valeur incorrecte!");}}/* (constante reele signee mahich bin a9was)*/
 
 [+\-*/] {printf("OPERATEUR ARITHMITIQUE : %s\n" , yytext);};//op_arthmitique
 (&&|\|\||!) {printf("OPERATEUR LOGIQUE : %s\n",yytext);};//op_logique
-
-
 "%%"[^\n]* {}; /* regx définie veut dire tous les mots qui commencents par %% et suivis par tous les caractéres sauf le saut de ligne  */
-[ \t\n]+ {}; /*tabulations et saut de lines ignorées*/
+ /*tabulations sont ignorées*/
+[ \t] {} 
+\n {ligne++;}
 [{};,()] { printf("SEPARATEUR : %s\n",yytext);};
 ">"   { printf("OP_COMP : %s \n", yytext); }
 "<"   { printf("OP_COMP : %s \n", yytext); }
@@ -32,7 +38,7 @@
 "=="  { printf("OP_COMP : %s \n", yytext); }
 "!="  { printf("OP_COMP : %s \n", yytext); }
 
-. { printf("CARACTERE NON RECONNU : %s\n", yytext);};
+. { printf("Erreur lexicale a la ligne %d  , Caractere %s non reconnu \n", ligne , yytext);};
 %%
 
 int yywrap() {

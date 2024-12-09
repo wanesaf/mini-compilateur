@@ -1,3 +1,4 @@
 flex lexical.l
-gcc lex.yy.c
+bison -d syntaxic.y
+gcc lex.yy.c syntaxic.tab.c
 ./a.exe

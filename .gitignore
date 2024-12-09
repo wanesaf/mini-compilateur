@@ -3,3 +3,5 @@ lex.yy.c
 schéma.png
 00-Projet compile ING (2).pdf
 00-Projet compile ING (1).pdf
+syntaxic.tab.c
+syntaxic.tab.h

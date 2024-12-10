@@ -12,7 +12,6 @@ CONST_FLOAT_SIGN \([-+][0-9]+\.[0-9]+\)
 CONST_FLOAT_NON_SIGN [0-9]+\.[0-9]+
 CONST_ENTIERE_SIGN \([-+][0-9]+\)
 CONST_ENTIERE_NON_SIGN [0-9]+
-OP_ARTH [+\-*/]
 
 
 %%
@@ -61,10 +60,10 @@ FOR {return FOR;}
 "*" {return '*';}
 "/" {return '/';}
 
-"=" {return "="; }
-"{" {return "{" ; }
-"}" { return "}";}
-";" {return ";"; }
+"=" {return affect; }
+"{" {return acc_ouv ; }
+"}" { return acc_ferm;}
+";" {return point_virg; }
 "," {return  ","; }
 "(" {return "("; }
 ")" {return ")"; }

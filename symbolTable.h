@@ -76,7 +76,7 @@ int recevoirType(char t[])
 }
 
 
-int verif_compatiblite(int type1, int type2)
+int verif_comp(int type1, int type2)
 {
     if (type1 != type2)
     {
@@ -85,7 +85,7 @@ int verif_compatiblite(int type1, int type2)
     return 1;
 }
 
-int verif_declarat(char name[20])
+int verif_dec(char name[20])
 {
 
     TS x = rechercher(name);
@@ -99,12 +99,11 @@ int verif_declarat(char name[20])
     }
 }
 
-int modification_cst(char name[20])
+int modif_cst(char name[20])
 {
     TS x = rechercher(name);
     if (x->nature == 1)
     {
-
         return 0;
     }
     return 1;

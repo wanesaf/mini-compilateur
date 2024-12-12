@@ -1,3 +1,2 @@
-1.bkali nrégli char[] , affectation 
-2.les returns mankdroch ndirohom 7tan nbdaw fbison tsma activiw
-3.bkat tan table de symbols fiha khdema 
+1.bkali nrégli char[] 
+

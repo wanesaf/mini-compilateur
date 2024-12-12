@@ -2,7 +2,7 @@
     int ligne = 1;
     int const_entiere;
     float const_float;
-    #include "syntaxic2.tab.h"
+    #include "syntaxic.tab.h"
 %}
 
 %option noyywrap
@@ -51,27 +51,30 @@ FOR                  { return FOR; }
 [ \t]+               { }
 \n                   { ligne++; }
 
-"|"                  { return '|'; }
-"&"                  { return '&'; }
-"!"                  { return '!'; }
+"|"                  { return or; }
+"&"                  { return and; }
+"!"                  { return neg; }
 
-"+"                  { return '+'; }
-"-"                  { return '-'; }
-"*"                  { return '*'; }
-"/"                  { return '/'; }
+"+"                  { return plus; }
+"-"                  { return minus; }
+"*"                  { return mul; }
+"/"                  { return division; }
 
 "="                  { return affect; }
 "{"                  { return acc_ouvr;  }
 "}"                  { return acc_ferm;  }
 ";"                  { return point_virg; }
 ","                  { return virg; }
+":"                  { return deuxpoints; }
 "("                  { return parth_ouvr; }
 ")"                  { return parth_ferm; }
 "["                  { return croch_ouvr; }
 "]"                  { return croch_ferm; }
+\"([^\"\\]|\\.)*\"   { return chaine;}
 
-">"                  { return '>'; }
-"<"                  { return '<'; }
+
+">"                  { return sup; }
+"<"                  { return inf; }
 ">="                 { return supeg; }
 "<="                 { return infeg; }
 "=="                 { return eg; }

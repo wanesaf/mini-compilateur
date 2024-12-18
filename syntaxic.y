@@ -1,8 +1,8 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include "symbolTable.h"
 extern int ligne;
+extern int colonne;
 int yyparse();
 int yylex();
 int yyerror(char *s);
@@ -32,7 +32,7 @@ int yyerror(char *s);
 S: VAR_GLOBAL acc_ouvr declaration acc_ferm 
    DECLARATION acc_ouvr declaration acc_ferm
    INSTRUCTION acc_ouvr instruction acc_ferm
-     { printf("test passed\n"); };
+     { printf("compilation terminee, pas d'erreurs lexicales ou syntaxiques.\n"); };
 
 //partie Var_global et Declaration
 declaration:
@@ -40,8 +40,8 @@ declaration:
     ;
 
 dec_list:
-    dec point_virg { printf("Delaration unique.\n"); }
-    | dec_list dec point_virg { printf("Declaration ajoutée à la liste.\n"); }
+    dec point_virg 
+    | dec_list dec point_virg 
     ;
 
 typeG:
@@ -64,11 +64,12 @@ doubleDec : typeG IDF virg IDF //INTEGER X,Y
           | typeG IDF virg IDF croch_ouvr CONST_ENTIERE_NON_SIGN croch_ferm//INTEGER X,T[7];
           | typeG IDF croch_ouvr CONST_ENTIERE_NON_SIGN croch_ferm virg IDF//INTEGER T[7],X;
           | typeG IDF croch_ouvr CONST_ENTIERE_NON_SIGN croch_ferm virg IDF croch_ouvr CONST_ENTIERE_NON_SIGN croch_ferm//INTEGER T[7],X[1];
-
+;
 dec:
     typeG IDF
     | CONST INTEGER IDF affect typeEC
     | CONST FLOAT IDF affect typeFC
+    | CONST CHAR IDF croch_ouvr CONST_ENTIERE_NON_SIGN croch_ferm affect chaine
     | typeG IDF croch_ouvr CONST_ENTIERE_NON_SIGN croch_ferm //pour les tableaux il reste de vérifier qui il est sup a 0
     | doubleDec
     ;
@@ -86,9 +87,10 @@ instr : affectation
       | conditionIF 
       | boucle 
       | entreeSortie
-
+      ;
 
 affectation : IDF affect expression; // a = expression
+
 
 conditionIF : IF parth_ouvr condition parth_ferm acc_ouvr instruction acc_ferm //IF with else
               ELSE acc_ouvr instruction acc_ferm 
@@ -96,15 +98,11 @@ conditionIF : IF parth_ouvr condition parth_ferm acc_ouvr instruction acc_ferm /
             ;
 
 boucle : FOR parth_ouvr // FOR (i=0 :2 ://n) { i = i + 1 ;}
-       IDF affect CONST_ENTIERE_NON_SIGN
-       deuxpoints CONST_ENTIERE_NON_SIGN deuxpoints 
+       IDF affect expression
+       deuxpoints expression deuxpoints 
        IDF parth_ferm
        acc_ouvr instruction acc_ferm 
-       | FOR parth_ouvr //FOR (i=0 :2 : //5) { i = i + 1 ;}
-       IDF affect CONST_ENTIERE_NON_SIGN
-       deuxpoints CONST_ENTIERE_NON_SIGN deuxpoints 
-       CONST_ENTIERE_NON_SIGN parth_ferm
-       acc_ouvr instruction acc_ferm 
+      
 
 
 entreeSortie: READ parth_ouvr IDF parth_ferm //READ(a)
@@ -134,15 +132,15 @@ condition: expression inf expression
          | expression infeg expression
          | expression supeg expression
          | neg expression
-         | expression and expression
-         | expression or expression ;
+         | condition and and  condition
+         | condition or or  condition ;
 
 
 
 %%
 int yyerror(char *msg)
 {
-    printf("%s : erreur syntaxique à la ligne %d\n", msg, ligne);
+    printf("%s : erreur syntaxique a la ligne %d et colonne %d\n", msg, ligne,colonne);
     return 1;
 }
 
@@ -151,3 +149,5 @@ int main()  {
 yyparse(); 
 return 0;  
 }
+
+//souhil 

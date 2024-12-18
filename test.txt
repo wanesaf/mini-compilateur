@@ -1,0 +1,25 @@
+VAR_GLOBAL {
+    %%ce bloc est le meme que declaration%%
+}
+DECLARATION {
+INTEGER A ;
+FLOAT B ;
+CHAR D ;
+CHAR D , Ap[1];
+INTEGER Tab[1];
+CONST FLOAT Alpha= (-3.5);
+CONST FLOAT Beta = 3.2;
+CONST INTEGER D12 = (-5) ;
+FLOAT X,Y;
+}
+INSTRUCTION {
+READ(Abc);
+WRITE("AAA",Nomvar,"BICJsq");
+I=I+1;
+FOR(I=0:2:N){I=I+1;};
+FOR(I =0 :2 :N){ FOR( I=0 :2 :N){ B = B+1;}; };
+IF (Aa > Bb) { Cc=E+2.6; } ELSE{ Cc=0; };
+IF ( Aa>B || Aa<B ) { Cc=E+2.6; } ELSE{ Cc=0; };
+}
+%% Chaque instruction doit se terminer par un point virgule %%
+%% IDF doit comment par une lettre majuscule suivi d'une lettre miniscule et chiffre

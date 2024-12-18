@@ -5,7 +5,7 @@ Creation d'un mini compilateur en utilisant flex et bison pour le s5
 completed
 
 **Syntaxic Analysis**
-60%
+completed
 
 **Symbol Table**
 90%
